@@ -6,7 +6,7 @@ foreach i (Elements of actual sentence){
 
 	if HEAD_ID[i] equals VERB_ID{
 
-// Normalbehandlung für Subjekte, Direkte und Ind
+// Normalbehandlung für Subjekte, Direkte und Indirekte Objekte
 		if LABEL[i] equals "SB" 
 			ADD LEMMA[i] to Subject_LIST of VERB_LEMMA
 		if 	LABEL[i] equals "DO" 
