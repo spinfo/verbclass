@@ -1,0 +1,42 @@
+//Algorithm of the Actant Aggregator
+
+Given: VERB_ID and VERB_LEMMA
+
+foreach i (Elements of actual sentence){
+
+	if HEAD_ID[i] equals VERB_ID{
+
+// Normalbehandlung für Subjekte, Direkte und Ind
+		if LABEL[i] equals "SB" 
+			ADD LEMMA[i] to Subject_LIST of VERB_LEMMA
+		if 	LABEL[i] equals "DO" 
+			ADD LEMMA[i] to DativeObject_LIST of VERB_LEMMA 
+		if LABEL[i] equals "OA" 
+			ADD LEMMA[i] to AccusativeObject_LIST of VERB_LEMMA
+		
+//Sonderbehandlung für Präpositionalobjekte und präpositionale Ergänzungen --> 
+//Hier sollte das Nomen in die PrepObj-Liste aufgenommen werden
+		if POS_TAG[i] equals "APPR"|"APPRART"|"PTKVZ"{
+			PREP_ID = ID[i]
+ 			foreach j (Elements of actual sentence){
+ 				if HEAD_ID[j] equals PREP_ID{
+ 					if POS_TAG[j] startsWith "N"|"PREL"
+ 						ADD LEMMA[j] to PrepObject_LIST of VERB_LEMMA
+ 				}
+ 			}			
+ 		}
+ 	}
+} 			
+			
+//Einsammeln der Subjekte, die am Hilfsverb, nicht am Vollverb hängen
+if HEAD_ID[VERB_ID] not null{
+	if POS_TAG[HEAD_ID[VERB_ID]] equals "AUX"{
+		foreach k (Elements of actual sentence){ 
+		  	if(LABEL[k] equals "SB")
+		  		ADD LEMMA[k] to Subject_LIST of VERB_LEMMA
+		}
+	}
+}		  		
+		  		
+ 						
+ 						

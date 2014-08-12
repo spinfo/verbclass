@@ -21,7 +21,7 @@ public class ActantAggregatorTests {
 		
 		ActantAggregator acag = new ActantAggregator();
 		
-		File folder = new File("parsedSentencesWithVerbs");
+		File folder = new File("output/parsedSentencesWithVerbs");
 		File[] listFiles = folder.listFiles();
 		int sum = 0;
 		for (File file : listFiles) {

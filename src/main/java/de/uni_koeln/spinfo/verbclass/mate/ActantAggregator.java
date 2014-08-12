@@ -252,7 +252,7 @@ public class ActantAggregator {
 		out.flush();
 		out.close();
 		
-		OutputStream matrixOutputStream = new FileOutputStream("matrix.txt");
+		OutputStream matrixOutputStream = new FileOutputStream("output/singleFiles/matrix.txt");
 		printMatrix(matrix, matrixOutputStream);
 		
 		System.out.println("Overall actants: " + sum);
@@ -306,7 +306,7 @@ public class ActantAggregator {
 	public Map<String, Map<String, List<String>>> getNActantsOfEachActantClassFromVerbs(int number){
 		try {
 			//Export most present actants of verbs to a file
-			PrintWriter out = new PrintWriter(new FileWriter(new File("verb_actant_list_15.txt")));
+			PrintWriter out = new PrintWriter(new FileWriter(new File("output/singleFiles/ verb_actant_list_15.txt")));
 			
 			
 			Map<String, Map<String, List<String>>> toReturn = new HashMap<String, Map<String, List<String>>>();
