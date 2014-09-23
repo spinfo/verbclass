@@ -21,7 +21,7 @@ import java.util.TreeMap;
 public class ActantAggregator {
 	
 	
-	//
+	
 	
 	private Set<String> verbsOfInterest;
 	
