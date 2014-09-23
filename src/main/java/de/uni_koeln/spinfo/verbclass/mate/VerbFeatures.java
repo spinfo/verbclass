@@ -1,5 +1,6 @@
 package de.uni_koeln.spinfo.verbclass.mate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,5 +53,151 @@ public class VerbFeatures {
 	
 	private int almostlyCount;
 		//Count of verb occurences with dependent adverb "fast|beinahe"
+
+	/**
+	 * Initializes a new Verbfeature object with specified lemma
+	 * @param lemma
+	 */
+	public VerbFeatures(String lemma) {
+		this.lemma = lemma;
+		this.subjects = new HashMap<String, Integer>();
+		this.dativeObjects = new HashMap<String, Integer>();
+		this.directObjects = new HashMap<String, Integer>();
+		this.prepositionalObjects = new HashMap<String, Integer>();
+	}
+
+	/** Returns the lemma of the verb
+	 * @return lemma of the verb
+	 */
+	public String getLemma() {
+		return lemma;
+	}
+	
+	/** Adds the specified subject lemma to the subjects map 
+	 * @param lemma subject 
+	 */
+	public void addSubject(String lemma){
+		addToMap(subjects, lemma);
+	}
+	
+	/** Returns the subjects map
+	 * @return subjects with counts
+	 */
+	public Map<String, Integer> getSubjects() {
+		return subjects;
+	}
+	
+	/** Adds the specified direct object lemma to the direct objects map
+	 * @param lemma direct object
+	 */
+	public void addDirectObject(String lemma){
+		addToMap(directObjects, lemma);
+	}
+
+	/** Returns the direct objects map
+	 * @return direct objects with counts
+	 */
+	public Map<String, Integer> getDirectObjects() {
+		return directObjects;
+	}
+
+	public void addDativeObject(String lemma){
+		addToMap(dativeObjects, lemma);
+	}
+	
+	public Map<String, Integer> getDativeObjects() {
+		return dativeObjects;
+	}
+	
+	public void addPrepositionalObject(String lemma){
+		addToMap(prepositionalObjects, lemma);
+	}
+
+	public Map<String, Integer> getPrepositionalObjects() {
+		return prepositionalObjects;
+	}
+
+	public int getImperativeCount() {
+		return imperativeCount;
+	}
+
+	public void increaseImperativeCount() {
+		this.imperativeCount++;
+	}
+
+	public int getStoppedActionCount() {
+		return stoppedActionCount;
+	}
+
+	public void increaseStoppedActionCount() {
+		this.stoppedActionCount++;
+	}
+
+	public int getPersuadeCount() {
+		return persuadeCount;
+	}
+
+	public void increasePersuadeCount() {
+		this.persuadeCount++;
+	}
+
+	public int getSincePointOfTimeCount() {
+		return sincePointOfTimeCount;
+	}
+
+	public void increaseSincePointOfTimeCount() {
+		this.sincePointOfTimeCount++;
+	}
+
+	public int getDurationCount() {
+		return durationCount;
+	}
+
+	public void increaseDurationCount() {
+		this.durationCount++;
+	}
+
+	public int getTimeUnitCount() {
+		return timeUnitCount;
+	}
+
+	public void increaseTimeUnitCount() {
+		this.timeUnitCount++;
+	}
+
+	public int getWithIntentCount() {
+		return withIntentCount;
+	}
+
+	public void increaseWithIntentCount() {
+		this.withIntentCount++;
+	}
+
+	public int getCarefullyCount() {
+		return carefullyCount;
+	}
+
+	public void increaseCarefullyCount() {
+		this.carefullyCount++;
+	}
+
+	public int getAlmostlyCount() {
+		return almostlyCount;
+	}
+
+	public void increaseAlmostlyCount() {
+		this.almostlyCount++;
+	}
+	
+	public void addToMap(Map<String, Integer> map, String lemma){
+		Integer count = map.get(lemma);
+		if(count==null){
+			count = 0;
+		}
+		count += 1;
+		map.put(lemma, count);
+	}
+	
+	
 
 }
