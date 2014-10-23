@@ -17,11 +17,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatures;
+
 
 public class ActantAggregator {
 	
 	
-	
+	private Map<String, VerbFeatures> verbsWithFeatures;
 	
 	private Set<String> verbsOfInterest;
 	
@@ -309,7 +311,7 @@ public class ActantAggregator {
 	public Map<String, Map<String, List<String>>> getNActantsOfEachActantClassFromVerbs(int number){
 		try {
 			//Export most present actants of verbs to a file
-			PrintWriter out = new PrintWriter(new FileWriter(new File("output/singleFiles/ verb_actant_list_15.txt")));
+			PrintWriter out = new PrintWriter(new FileWriter(new File("output/singleFiles/verb_actant_list_"+ number + ".txt")));
 			
 			
 			Map<String, Map<String, List<String>>> toReturn = new HashMap<String, Map<String, List<String>>>();

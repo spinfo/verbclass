@@ -1,4 +1,4 @@
-package de.uni_koeln.spinfo.verbclass.mate;
+package de.uni_koeln.spinfo.verbclass.verbfeatures;
 
 import java.util.HashMap;
 import java.util.Map;
