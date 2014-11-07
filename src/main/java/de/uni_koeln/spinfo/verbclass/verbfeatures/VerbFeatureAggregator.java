@@ -13,6 +13,7 @@ public class VerbFeatureAggregator {
 	
 	
 	private Map<String, VerbFeatures> verbsWithFeatures;
+	
 	private SpecialLexemFinder slf;
 	
 	public VerbFeatureAggregator(){
@@ -70,7 +71,7 @@ public class VerbFeatureAggregator {
 		int successCounter = 0;
 		
 		//setImperative
-		if(sd.pfeats[verbID].contains("|imp")){
+		if(sd.pfeats[verbID]!=null && sd.pfeats[verbID].contains("|imp")){
 			verbFeatures.increaseImperativeCount();
 			successCounter++;
 		}
@@ -91,8 +92,27 @@ public class VerbFeatureAggregator {
 						nonom++;
 						continue;
 					}
+					 //"mit Absicht";
+					if(sd.plemmas[i].equals("mit")){
+						if(nom.equals("Absicht")||nom.equals("Absicht")){
+							verbFeatures.increaseWithIntentCount();
+						}
+						if(nom.equals("Sorgfalt")){
+							verbFeatures.increaseCarefullyCount();
+						}
+					}
+					
+					//"in/seit/von"
+					if(sd.plemmas[i].equals("in")||sd.plemmas[i].equals("seit")||sd.plemmas[i].equals("vor")){
+						if(slf.belongsToCategory(nom)!=null && slf.belongsToCategory(nom).equals("timeUnit")){
+							verbFeatures.increaseTimeUnitCount();
+						}
+					}
+					
 					lemmaOfInterest = nom;					
 					edgeLabelConv = "PO";
+					
+					
 				}				
 				if(lemmaOfInterest.equals("<unknown>")){
 					lemmaOfInterest = sd.forms[i];
@@ -103,16 +123,22 @@ public class VerbFeatureAggregator {
 				
 				//2. Set other dependent features
 				String belongsToCategory = slf.belongsToCategory(sd.plemmas[i]);
-				switch (belongsToCategory) {
-				case "duration": verbFeatures.increaseDurationCount();
-				break;
-				case "persuade": verbFeatures.increasePersuadeCount();
-				break;
-				case "": verbFeatures.increasePersuadeCount();
-				break;
-				default:
+				if(belongsToCategory!=null){
+					switch (belongsToCategory) {
+					
+					case "duration": verbFeatures.increaseDurationCount();
 					break;
+					case "intent": verbFeatures.increaseWithIntentCount();
+					break;
+					case "carefully": verbFeatures.increaseCarefullyCount();
+					break;
+					case "almostly": verbFeatures.increaseAlmostlyCount();
+					break;
+					default:
+						break;
+					}
 				}
+				
 			}			
 		}	
 		
@@ -123,6 +149,15 @@ public class VerbFeatureAggregator {
 			for(int j=0; j<heads.length; j++){
 				if(heads[j] == headOfVerbID){
 					lemmaOfInterest = sd.plemmas[j];
+					String belongsToCategory = slf.belongsToCategory(sd.plemmas[j]);
+					if(belongsToCategory!=null){
+						if(belongsToCategory.equals("persuade")){
+							verbFeatures.increasePersuadeCount();
+						}
+						if(belongsToCategory.equals("stoppedAction")){
+							verbFeatures.increaseStoppedActionCount();
+						}
+					}
 					
 					//If PrepObj: Get the contained nom
 					String edgeLabel = sd.plabels[j];
@@ -134,7 +169,8 @@ public class VerbFeatureAggregator {
 						}	
 						verbFeatures.addSubject(lemmaOfInterest);
 					
-					}							
+					}		
+					
 				}
 			}
 		}
@@ -311,6 +347,11 @@ public class VerbFeatureAggregator {
 		out.close();
 		
 	}
+	
+	public Map<String, VerbFeatures> getVerbsWithFeatures() {
+		return verbsWithFeatures;
+	}
+
 	
 //	public Map<String, Map<String, List<String>>> getNActantsOfEachActantClassFromVerbs(int number){
 //		try {

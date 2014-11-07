@@ -10,7 +10,6 @@ public class SpecialLexemFinder {
 
 	private Set<String> stoppedAction;
 	private Set<String> persuades;
-	private Set<String> sincesPrep;
 	private Set<String> durations;
 	private Set<String> timeUnits;
 	private Set<String> intents;
@@ -34,12 +33,7 @@ public class SpecialLexemFinder {
 		persuades.addAll(Arrays.asList(new String[] {"überzeugen"}));
 		allLemmas.put(persuades, "persuade");
 		
-		sincesPrep = new HashSet<String>();
-		sincesPrep.addAll(Arrays.asList(new String[] {"seit","in", "von"}));
-		allLemmas.put(sincesPrep, "sincesPrep");
-		
-		
-		timeUnits = new HashSet<String>();
+				timeUnits = new HashSet<String>();
 		timeUnits.addAll(Arrays.asList(new String[] {"sekunde",
 				"minute", "stunde", "tag", "woche",
 				"monat", "jahr", "jahrzehnt", "jahrhundert", "jahrtausend"}));
@@ -52,11 +46,11 @@ public class SpecialLexemFinder {
 		allLemmas.put(durations, "duration");
 		
 		intents = new HashSet<String>();
-		intents.addAll(Arrays.asList(new String[] {"absichtlich","vorsätzlich","absicht", "vorsatz"}));
+		intents.addAll(Arrays.asList(new String[] {"absichtlich","vorsätzlich"}));
 		allLemmas.put(intents, "intent");
 		
 		carefullys = new HashSet<String>();
-		carefullys.addAll(Arrays.asList(new String[] {"sorgfältig", "sorgfalt"}));
+		carefullys.addAll(Arrays.asList(new String[] {"sorgfältig"}));
 		allLemmas.put(carefullys, "carefully");
 		
 		almostlys = new HashSet<String>();
@@ -66,6 +60,9 @@ public class SpecialLexemFinder {
 	
 	public String belongsToCategory(String lemma){
 		lemma = lemma.toLowerCase();
+		if(lemma.equals("mit")){
+			return "mit";
+		}
 		Set<Set<String>> keySet = allLemmas.keySet();
 		for (Set<String> set : keySet) {
 			if(set.contains(lemma)){

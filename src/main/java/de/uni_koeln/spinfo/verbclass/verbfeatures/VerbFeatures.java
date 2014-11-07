@@ -53,6 +53,22 @@ public class VerbFeatures {
 	
 	private int almostlyCount;
 		//Count of verb occurences with dependent adverb "fast|beinahe"
+	
+	public String toString(){
+		StringBuffer buff= new StringBuffer();
+		
+		buff.append(imperativeCount+"\t");
+		buff.append(stoppedActionCount+"\t");
+		buff.append(persuadeCount+"\t");
+		buff.append(sincePointOfTimeCount+"\t");
+		buff.append(durationCount+"\t");
+		buff.append(timeUnitCount+"\t");
+		buff.append(withIntentCount+"\t");
+		buff.append(carefullyCount+"\t");
+		buff.append(almostlyCount+"\t");
+		buff.append(lemma+"\t");
+		return buff.toString();
+	}
 
 	/**
 	 * Initializes a new Verbfeature object with specified lemma
