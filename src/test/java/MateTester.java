@@ -76,11 +76,18 @@ public class MateTester {
 	@Test 
 	public void testMateReader(){
 		CONLLReader09 reader = new CONLLReader09(true);
-		reader.startReading("parsedSentencesWithVerbs/abgrenzen.txt");
+		reader.startReading("output/parsedSentencesWithVerbs/abgrenzen.txt");
 		SentenceData09 nextCoNLL09 = reader.getNextCoNLL09();
 		int i=0;
 		while(nextCoNLL09!=null){
 			nextCoNLL09 = reader.getNextCoNLL09();
+			String[] pfeats = nextCoNLL09.pfeats;
+			for (String string : pfeats) {
+				if(string!=null && string.endsWith("|imp")){
+					System.out.println(nextCoNLL09);
+				}
+			}
+			
 			System.out.println(i++);
 		}
 	}
