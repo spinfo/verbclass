@@ -24,7 +24,8 @@ public class CategorySpecifier {
 	private Map<Set<String>, String> allLemmas;
 	
 	/**
-	 * Initializes a new SpeciaLexem
+	 * Initializes a new CategorySpecifier.
+	 * (TODO: Should be configurable from a configuration file in the next version) 
 	 */
 	public CategorySpecifier(){
 		initialize();
@@ -66,11 +67,13 @@ public class CategorySpecifier {
 		allLemmas.put(almostlys, "almostly");
 	}
 	
+	/**
+	 * Tests, if the specified lemma belongs to a category and returns this category.
+	 * @param lemma Lemma to test
+	 * @return the category the lemma belongs to (null if it doesn't belong to any category)
+	 */
 	public String belongsToCategory(String lemma){
 		lemma = lemma.toLowerCase();
-		if(lemma.equals("mit")){
-			return "mit";
-		}
 		Set<Set<String>> keySet = allLemmas.keySet();
 		for (Set<String> set : keySet) {
 			if(set.contains(lemma)){
