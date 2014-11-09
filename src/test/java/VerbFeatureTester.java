@@ -2,14 +2,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.uni_koeln.spinfo.verbclass.verbfeatures.SpecialLexemFinder;
+import de.uni_koeln.spinfo.verbclass.verbfeatures.CategorySpecifier;
 
 
 public class VerbFeatureTester {
 
 	@Test
 	public void testSpecialLexemFinder() {
-		SpecialLexemFinder slf = new SpecialLexemFinder(); 
+		CategorySpecifier slf = new CategorySpecifier(); 
 		System.out.println(slf.belongsToCategory("sekundenlang"));
 	}
 

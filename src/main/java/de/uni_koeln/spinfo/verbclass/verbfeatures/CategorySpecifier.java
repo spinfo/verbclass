@@ -6,7 +6,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class SpecialLexemFinder {
+/**
+ * Helper class to specify various categories and their String elements.
+ * @author jhermes
+ *
+ */
+public class CategorySpecifier {
 
 	private Set<String> stoppedAction;
 	private Set<String> persuades;
@@ -18,7 +23,10 @@ public class SpecialLexemFinder {
 	
 	private Map<Set<String>, String> allLemmas;
 	
-	public SpecialLexemFinder(){
+	/**
+	 * Initializes a new SpeciaLexem
+	 */
+	public CategorySpecifier(){
 		initialize();
 	}
 
