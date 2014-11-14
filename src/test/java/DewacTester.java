@@ -49,6 +49,16 @@ public class DewacTester {
 	}
 	
 	@Test
+	public void testCreateFilePerVerbUseParticles() throws IOException{
+
+		StringsOfInterest soi = new StringsOfInterest();
+		soi.initialize("data/splittedparticles.txt");
+		
+		DewacSplitter ds = new DewacSplitter("output/sentencesWithParticleVerbs");
+		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000);
+	}
+	
+	@Test
 	public void testStringsOfInterest() throws IOException{
 		StringsOfInterest soi = new StringsOfInterest();
 		soi.initialize("verbsOfInterest");

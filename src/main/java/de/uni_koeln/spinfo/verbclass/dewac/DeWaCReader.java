@@ -120,10 +120,6 @@ public class DeWaCReader {
 		}
 	}
 	
-	private void toFile(){
-		
-	}
-
 	public Set<String> getTagSet() {
 		return tagSet;
 	}

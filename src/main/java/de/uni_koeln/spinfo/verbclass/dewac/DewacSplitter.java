@@ -6,7 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public class DewacSplitter {
@@ -78,7 +81,7 @@ public class DewacSplitter {
 				toWrite.append(nextLine + '\n');
 			}
 			
-			if(notOfInterest>10000000){
+			if(notOfInterest>100000){
 				break;
 			}
 			//System.out.println(nextLine);
@@ -143,6 +146,95 @@ public class DewacSplitter {
 		System.out.println("Sentences not of interest: " + notOfInterest);
 		System.out.println();
 		soi.printMap();
+	}
+	
+	public Map<Integer, Integer> analyseSentencesLengths(File inputFile) throws IOException{
+		BufferedReader in = new BufferedReader(new FileReader(inputFile));
+		String nextLine = in.readLine();
+		int sentenceCounter = 0;
+		Map<Integer, Integer> lengthes = new HashMap<Integer, Integer>();
+		int length = 0;
+		
+		while(nextLine!= null){
+			
+			if(nextLine.startsWith("<")){				
+				if(nextLine.trim().equals("<s>")){					
+					System.out.println(sentenceCounter + " length =" + length);
+					sentenceCounter++;
+					length=0;
+				}
+				else{
+					if(nextLine.trim().equals("</s>")){
+						Integer put = lengthes.put(length, 1);
+						if(put!=null){
+							lengthes.put(length, (Integer)(1+put));
+						}				
+					}
+					
+				}	
+				
+			}
+			else{
+				length++;
+			}
+			nextLine = in.readLine();
+					
+		}		
+		in.close();
+		return lengthes;
+	}
+	
+	public void getSentencesWithLengthes(File inputFile, Set<Integer> lengthes, int max) throws IOException{
+		BufferedReader in = new BufferedReader(new FileReader(inputFile));
+		String nextLine = in.readLine();
+		int sentenceCounter = 0;
+		//Map<Integer, Integer> lengthes = new HashMap<Integer, Integer>();
+		PrintWriter out = new PrintWriter(new FileWriter(new File(destinationDir + "//shortTexts.txt")));
+		StringBuffer toWrite = new StringBuffer();
+		int length = 0;
+		while(nextLine!= null){
+			
+			if(nextLine.startsWith("<")){				
+				if(nextLine.trim().equals("<s>")){					
+					//System.out.println(sentenceCounter + " length =" + length);
+					sentenceCounter++;
+					length=0;
+				}
+				else{
+					if(nextLine.trim().equals("</s>")){
+						if(lengthes.contains(length)){
+							System.out.println(length);
+							System.out.println(toWrite);
+							out.println(toWrite);
+							
+							if(max==0){
+								break;
+							}
+						}	
+						toWrite = new StringBuffer();
+						max--;
+						
+					}					
+				}	
+				
+			}
+			else{
+				length++;
+				String[] split = nextLine.split("\t");
+				String word = split[0];
+//				for(int i=0; i<word.length(); i++){
+//					if(Characterword[i])
+//				}
+				toWrite.append(word + " ");
+				
+			}
+			nextLine = in.readLine();
+					
+		}		
+		in.close();
+		out.flush();
+		out.close();
+		
 	}
 	
 	/**

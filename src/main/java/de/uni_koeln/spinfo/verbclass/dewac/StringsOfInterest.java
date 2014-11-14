@@ -13,28 +13,43 @@ import java.util.Set;
 public class StringsOfInterest {
 	
 	private List<String> stringsOfInterest;
-	
-	private Map<String, Integer> stringsFound; 
+	private Map<String, String> stringsWithParticleConstraint;
+	private Map<String, Integer> stringsFound;
+	 
 	
 	public void initialize(String filename) throws IOException{
 		stringsOfInterest = new ArrayList<String>();
 		stringsFound = new HashMap<String, Integer>();
+		stringsWithParticleConstraint = new HashMap<String, String>();
 		
 		BufferedReader in = new BufferedReader(new FileReader(new File(filename)));
 		String nextString = in.readLine();
 		while(nextString!=null){
 			nextString = nextString.trim();
 			if(nextString!=""){
-				stringsOfInterest.add(nextString);
-				stringsFound.put(nextString, 0);
+				String[] splits = nextString.split(",");
+				
+				stringsOfInterest.add(splits[0].trim());
+				stringsFound.put(splits[0].trim(), 0);
+				
+				if(splits.length>1){
+					stringsWithParticleConstraint.put(splits[0].trim(), splits[1].trim());
+				}
+				
 			}
 			nextString = in.readLine();
 		}
 		in.close();
+		System.out.println(stringsOfInterest);
+		System.out.println(stringsWithParticleConstraint);
 	}
 	
 	public List<String> getStringsOfInterest() {
 		return stringsOfInterest;
+	}
+	
+	public String hasConstraint(String string){
+		return stringsWithParticleConstraint.get(string);
 	}
 
 	
