@@ -9,8 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * A class to convert sentence data in the (s)dewac format to SentenceData09 objects
+ * 
+ * @author jhermes
+ *
+ */
 public class Dewac2SentenceDataConverter {
 	
+	/**
+	 * Writes the data from the input stream to a list of SentenceData09 objects
+	 * @param input The input stream (should contain valid (s)Dewac data. 
+	 * @param nSentences Max sentences to convert
+	 * @return A list of SentenceData09 objects
+	 * @throws IOException
+	 */
 	public List<SentenceData09> processStream(InputStream input, int nSentences) throws IOException{
 		List<SentenceData09> toReturn = new ArrayList<SentenceData09>();
 		BufferedReader in = new BufferedReader(new InputStreamReader(input));

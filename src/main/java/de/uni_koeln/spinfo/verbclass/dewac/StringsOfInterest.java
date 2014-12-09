@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.Set;
 
 
+/**
+ * A class to specify strings of interest.
+ * @author jhermes
+ *
+ */
 public class StringsOfInterest {
 	
 	private List<String> stringsOfInterest;
@@ -17,6 +22,12 @@ public class StringsOfInterest {
 	private Map<String, Integer> stringsFound;
 	 
 	
+	/**
+	 * Initializes a StringsOfInterest object containing the strings 
+	 * specified in the file with the specified name
+	 * @param filename Name of file containing the strings of interest
+	 * @throws IOException
+	 */
 	public void initialize(String filename) throws IOException{
 		stringsOfInterest = new ArrayList<String>();
 		stringsFound = new HashMap<String, Integer>();

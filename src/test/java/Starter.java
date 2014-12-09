@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-import de.uni_koeln.spinfo.verbclass.dewac.DeWaCReader;
+import de.uni_koeln.spinfo.verbclass.deprecated.DeWaCReader;
 
 
 public class Starter {

@@ -12,25 +12,40 @@ import java.util.Map;
 import java.util.Set;
 
 
+/**
+ * Splitter for large sDewac files.
+ * Is able to split a file into files with a specified number of sentences 
+ * or into files with sentences containing a specified string of interest.
+ * 
+ * @author jhermes
+ *
+ */
 public class DewacSplitter {
 	
 	private File[] inputFiles; 
 	private File destinationDir;
+		
 	
-	
-	
+	/**
+	 * Initializes a new DewacSplitter. 
+	 * @param destination Destination folder for the result files.
+	 */
 	public DewacSplitter(String destination){
 		this.destinationDir = new File(destination);
 		if(!destinationDir.exists())
 			destinationDir.mkdirs();
 	}
 	
-//	public void splitAllFiles(int textsPerFile, int nFiles){
-//		for(int i=0; i<inputFiles.length; i++){
-//			nFiles -= splitFile(inputFiles[i], textsPerFile, nFiles); 
-//		}
-//	}
 	
+	/**
+	 * Searches the input files for the specified strings of interest 
+	 * and generates an output file for each string containing the specified 
+	 * maximum count of sentences with this string
+	 * @param inputFile The input file
+	 * @param soi strings of interest  
+	 * @param maxSentencesPerFile Max count of sentences per output file
+	 * @throws IOException 
+	 */
 	public void createFilePerVerb(File inputFile, StringsOfInterest soi, int maxSentencesPerFile) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(inputFile));
 		String nextLine = in.readLine();
@@ -99,6 +114,15 @@ public class DewacSplitter {
 		soi.printMap();
 	}
 	
+	/**
+	 * Searches the input files for the specified strings of interest 
+	 * and generates an output file for all string containing the specified 
+	 * maximum count of sentences with this string
+	 * @param inputFile The input file
+	 * @param soi strings of interest  
+	 * @param maxSentencesPerFile Max count of sentences per output file
+	 * @throws IOException 
+	 */
 	public void sentencesOfInterestToFile(File inputFile, StringsOfInterest soi, int maxSentences) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(inputFile));
 		String nextLine = in.readLine();
@@ -148,6 +172,12 @@ public class DewacSplitter {
 		soi.printMap();
 	}
 	
+	/** 
+	 * Counts the sentences lengthes of the input file
+	 * @param inputFile File to analyze
+	 * @return A map with sentences lenghtes as keys, their count as values
+	 * @throws IOException
+	 */
 	public Map<Integer, Integer> analyseSentencesLengths(File inputFile) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(inputFile));
 		String nextLine = in.readLine();
@@ -184,7 +214,14 @@ public class DewacSplitter {
 		return lengthes;
 	}
 	
-	public void getSentencesWithLengthes(File inputFile, Set<Integer> lengthes, int max) throws IOException{
+	/** Filters the sentences of the input file by the specified lenghtes. 
+	 * Generates an output file with max count of sentences with the specified lengthes.
+	 * @param inputFile file to analyze
+	 * @param lengthes Sentence lengthes of interest
+	 * @param max Max sentences to export
+	 * @throws IOException
+	 */
+	public void getSentencesWithMaxLength(File inputFile, Set<Integer> lengthes, int max) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(inputFile));
 		String nextLine = in.readLine();
 		int sentenceCounter = 0;
@@ -239,10 +276,10 @@ public class DewacSplitter {
 	
 	/**
 	 * Splits the specified file into nFiles subfiles containing sentencesPerFile sentences
-	 * @param inputFile
-	 * @param sentencesPerFile
-	 * @param nFiles
-	 * @throws IOException
+	 * @param inputFile The file to split
+	 * @param sentencesPerFile The count of sentences per result file
+	 * @param nFiles The count of result files
+	 * @throws IOException 
 	 */
 	public void splitFile(File inputFile, int sentencesPerFile, int nFiles) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(inputFile));

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import de.uni_koeln.spinfo.verbclass.dewac.DeWaCReader;
+import de.uni_koeln.spinfo.verbclass.deprecated.DeWaCReader;
 import de.uni_koeln.spinfo.verbclass.dewac.DewacSplitter;
 import de.uni_koeln.spinfo.verbclass.dewac.StringsOfInterest;
 

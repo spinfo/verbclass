@@ -1,4 +1,4 @@
-package de.uni_koeln.spinfo.verbclass.dewac;
+package de.uni_koeln.spinfo.verbclass.deprecated;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,11 +9,23 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
+/**
+ * A reader class for text data in sDewac format.
+ * Doesn't use any xml tool, because sDewacs xml is broken. 
+ * @author jhermes
+ *
+ */
+@Deprecated
 public class DeWaCReader {
 	
 	private Set<String> tagSet;
 	private File[] listFiles;
 	
+	/**
+	 * Initializes a new DewacReader on a file (or all files of a directory) 
+	 * with the specified filename 
+	 * @param filename
+	 */
 	public DeWaCReader(String filename){
 		File textFiles = new File(filename);
 		tagSet = new TreeSet<String>();
@@ -26,15 +38,18 @@ public class DeWaCReader {
 		}
 	}
 	
+	/**
+	 * Processes the specified
+	 * @throws IOException
+	 */
 	public void process() throws IOException{
-		
 		for (int i = 0; i < listFiles.length; i++) {
 			File actualFile = listFiles[i];
 			processFile(actualFile);
 		}
 	}
 	
-	public void processFile(File file) throws IOException{
+	private void processFile(File file) throws IOException{
 		BufferedReader in = new BufferedReader(new FileReader(file));
 		String nextLine = in.readLine();
 		
@@ -66,7 +81,7 @@ public class DeWaCReader {
 	private List<TeslaAnnotation> posTags;
 	private List<TeslaAnnotation> lemmata;
 	
-	public void processLine(String line){
+	private void processLine(String line){
 		if(line.trim().length()==0){
 			return;
 		}
