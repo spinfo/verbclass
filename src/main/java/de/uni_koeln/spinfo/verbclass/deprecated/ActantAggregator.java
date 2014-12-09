@@ -1,4 +1,4 @@
-package de.uni_koeln.spinfo.verbclass.mate;
+package de.uni_koeln.spinfo.verbclass.deprecated;
 import is2.data.SentenceData09;
 
 import java.io.File;

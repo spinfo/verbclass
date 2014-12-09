@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import de.uni_koeln.spinfo.verbclass.dewac.DeWaCReader;
+import de.uni_koeln.spinfo.verbclass.deprecated.DeWaCReader;
 import de.uni_koeln.spinfo.verbclass.dewac.DewacSplitter;
 import de.uni_koeln.spinfo.verbclass.dewac.StringsOfInterest;
 
@@ -46,6 +46,16 @@ public class DewacTester {
 		
 		DewacSplitter ds = new DewacSplitter("sentencesWithVerbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 100000);
+	}
+	
+	@Test
+	public void testCreateFilePerVerbUseParticles() throws IOException{
+
+		StringsOfInterest soi = new StringsOfInterest();
+		soi.initialize("data/splittedparticles.txt");
+		
+		DewacSplitter ds = new DewacSplitter("output/sentencesWithParticleVerbs");
+		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000);
 	}
 	
 	@Test

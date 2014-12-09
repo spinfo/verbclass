@@ -6,7 +6,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class SpecialLexemFinder {
+/**
+ * Helper class to specify various categories and their String elements.
+ * @author jhermes
+ *
+ */
+public class CategorySpecifier {
 
 	private Set<String> stoppedAction;
 	private Set<String> persuades;
@@ -18,7 +23,11 @@ public class SpecialLexemFinder {
 	
 	private Map<Set<String>, String> allLemmas;
 	
-	public SpecialLexemFinder(){
+	/**
+	 * Initializes a new CategorySpecifier.
+	 * (TODO: Should be configurable from a configuration file in the next version) 
+	 */
+	public CategorySpecifier(){
 		initialize();
 	}
 
@@ -58,11 +67,13 @@ public class SpecialLexemFinder {
 		allLemmas.put(almostlys, "almostly");
 	}
 	
+	/**
+	 * Tests, if the specified lemma belongs to a category and returns this category.
+	 * @param lemma Lemma to test
+	 * @return the category the lemma belongs to (null if it doesn't belong to any category)
+	 */
 	public String belongsToCategory(String lemma){
 		lemma = lemma.toLowerCase();
-		if(lemma.equals("mit")){
-			return "mit";
-		}
 		Set<Set<String>> keySet = allLemmas.keySet();
 		for (Set<String> set : keySet) {
 			if(set.contains(lemma)){

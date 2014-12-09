@@ -9,20 +9,35 @@ import java.util.Map;
 import java.util.Set;
 
 
+/**
+ * Class to aggegate verb features from sentences analyzed 
+ * via the Mate tools dependence parser.
+ * 
+ * @author jhermes
+ *
+ */
 public class VerbFeatureAggregator {
 	
 	
 	private Map<String, VerbFeatures> verbsWithFeatures;
 	
-	private SpecialLexemFinder slf;
+	private CategorySpecifier slf;
 	
+	/**
+	 * Initializes a new VerbFeatureAggregator without specifying any verb of interest.
+	 * Note that you have to specify the verbs of interest within the addVerbFeatures method. 
+	 */
 	public VerbFeatureAggregator(){
 		if(verbsWithFeatures==null){
 			verbsWithFeatures = new HashMap<String,VerbFeatures>();
 		}
-		slf = new SpecialLexemFinder();
+		slf = new CategorySpecifier();
 	}
 	
+	/**
+	 * Initializes a new VerbFeatureAggregator for specified verbs of interest;
+	 * @param verbsOfInterest Verbs to aggregate features for.
+	 */
 	public VerbFeatureAggregator(Set<String> verbsOfInterest){
 		this();
 		for (String lemma : verbsOfInterest) {
@@ -30,6 +45,13 @@ public class VerbFeatureAggregator {
 		}
 	}
 	
+	/** 
+	 * Searches the specified dependence tree of the sentence for
+	 * features of verbs of interest and aggregates 
+	 * them to the corresponding VerbFeature object.
+	 * @param sd A sentence as dependence tree
+	 * @return Number of verbs of interest found in the dependence tree
+	 */
 	public int addVerbFeatures(SentenceData09 sd){
 		if(verbsWithFeatures.size()==0){
 			throw new RuntimeException("No verbs of interest specified.");
@@ -45,6 +67,14 @@ public class VerbFeatureAggregator {
 		return verbsFound;
 	}
 	
+	/**
+	 * Searches the specified dependence tree of the sentence for
+	 * features for features of the specified verb and aggregates 
+	 * them to the corresponding VerbFeature object.
+	 * @param verb Verb of interest
+	 * @param sd A sentence as dependence tree
+	 * @return true, if verb is found in the dependence tree, false otherwise
+	 */
 	public boolean addVerbFeatures(String verb, SentenceData09 sd){
 		String[] plemmas = sd.plemmas;
 		for (int i = 0; i < plemmas.length; i++) {
@@ -193,12 +223,6 @@ public class VerbFeatureAggregator {
 	private int dacount = 0;
 	private int oacount = 0;
 	private int pocount = 0;
-	
-//	Set<String> subjects = new HashSet<String>();
-//	Set<String> accObjs = new HashSet<String>();
-//	Set<String> datObjs = new HashSet<String>();
-//	Set<String> prepObjs = new HashSet<String>();
-	
 	private int nonom =0;
 	
 	private boolean setEdgeOfInterest(String edgeLabel, String lemma, VerbFeatures vf){
@@ -212,6 +236,11 @@ public class VerbFeatureAggregator {
 	}
 
 	
+	/**
+	 * A simple helper method
+	 * @param matrix
+	 * @param outStream
+	 */
 	public void printMatrix(int[][] matrix, OutputStream outStream){
 		PrintWriter out = new PrintWriter(new OutputStreamWriter(outStream));
 		int datalength = 0;
@@ -233,8 +262,26 @@ public class VerbFeatureAggregator {
 		
 	}
 	
+	/** Returns all verbs of interest with their aggregated verb features
+	 * @return all verbs of interest with their aggregated verb features
+	 */
 	public Map<String, VerbFeatures> getVerbsWithFeatures() {
 		return verbsWithFeatures;
+	}
+	
+	/** Returns the aggregated features of the specified verb
+	 * @param verb Verb of interest
+	 * @return aggregated features of the specified verb
+	 */
+	public VerbFeatures getFeatures(String verb){
+		return verbsWithFeatures.get(verb);
+	}
+	
+	public void info(){
+		System.out.println("Subjects found: " + sbcount);
+		System.out.println("Direct objects found: " + oacount);
+		System.out.println("Dative objects found: " + dacount);
+		System.out.println("Prepositional objects found: " + pocount + "(" + nonom + " of them had no nominal complement)");
 	}
 
 }

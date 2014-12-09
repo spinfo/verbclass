@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import de.uni_koeln.spinfo.verbclass.mate.ActantAggregator;
+import de.uni_koeln.spinfo.verbclass.deprecated.ActantAggregator;
 
 
 public class ActantAggregatorTests {
