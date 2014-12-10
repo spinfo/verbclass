@@ -1,3 +1,4 @@
+package de.uni_koeln.spinfo.verbclass.tests;
 import is2.data.SentenceData09;
 import is2.io.CONLLReader09;
 
