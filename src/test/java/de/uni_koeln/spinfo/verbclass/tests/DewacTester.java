@@ -1,3 +1,4 @@
+package de.uni_koeln.spinfo.verbclass.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -17,7 +18,7 @@ import de.uni_koeln.spinfo.verbclass.dewac.StringsOfInterest;
 public class DewacTester {
 
 	/**
-	 * Splittet das sdewac corpus zu Dateien von ungefähr 1MB Größe
+	 * Splits the sdewac corpus to files containing 1MB data
 	 * @throws IOException
 	 */
 	@Test

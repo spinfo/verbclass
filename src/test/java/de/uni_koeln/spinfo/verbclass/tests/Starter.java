@@ -1,3 +1,4 @@
+package de.uni_koeln.spinfo.verbclass.tests;
 import java.io.IOException;
 
 import de.uni_koeln.spinfo.verbclass.deprecated.DeWaCReader;

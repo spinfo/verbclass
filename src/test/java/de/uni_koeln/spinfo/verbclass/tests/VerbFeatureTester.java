@@ -1,3 +1,4 @@
+package de.uni_koeln.spinfo.verbclass.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
