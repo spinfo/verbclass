@@ -95,9 +95,11 @@ public class MateTester {
 	
 	@Test
 	public void testVerbFolderParsing() throws FileNotFoundException, IOException{
-		File inputFile = new File("sentencesWithVerbs");
-		File outputFile = new File("parsedSentencesWithVerbs");
-				
+		//File inputFile = new File("sentencesWithVerbs");
+		//File outputFile = new File("parsedSentencesWithVerbs");
+		File inputFile = new File("output/100verbs");
+		File outputFile = new File("output/100verbsParsed");
+						
 		String mtModel = "models/ger-tagger+lemmatizer+morphology+graph-based-3.6/morphology-ger-3.6.model";
 		String pModel = "models/ger-tagger+lemmatizer+morphology+graph-based-3.6/parser-ger-3.6.model";
 		DewacDataParser dp = new DewacDataParser();

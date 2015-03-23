@@ -96,7 +96,7 @@ public class DewacSplitter {
 				toWrite.append(nextLine + '\n');
 			}
 			
-			if(notOfInterest>100000){
+			if(notOfInterest>10000000){
 				break;
 			}
 			//System.out.println(nextLine);

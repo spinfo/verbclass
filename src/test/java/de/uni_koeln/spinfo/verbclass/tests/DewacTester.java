@@ -43,10 +43,10 @@ public class DewacTester {
 	public void testCreateFilePerVerb() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.initialize("data/100verbsPure.txt");
 		
-		DewacSplitter ds = new DewacSplitter("sentencesWithVerbs");
-		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 100000);
+		DewacSplitter ds = new DewacSplitter("output/100verbs");
+		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
 	}
 	
 	@Test

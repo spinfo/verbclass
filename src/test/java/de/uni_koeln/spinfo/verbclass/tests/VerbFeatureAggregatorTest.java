@@ -19,7 +19,7 @@ public class VerbFeatureAggregatorTest {
 		VerbFeatureAggregator vfa = new VerbFeatureAggregator();
 		
 		
-		File folder = new File("output/parsedSentencesWithVerbs");
+		File folder = new File("output/100verbsParsed");
 		File[] listFiles = folder.listFiles();
 		int sum = 0;
 		for (File file : listFiles) {
