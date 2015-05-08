@@ -21,6 +21,11 @@ public class StringsOfInterest {
 	private Map<String, String> stringsWithParticleConstraint;
 	private Map<String, Integer> stringsFound;
 	 
+	public StringsOfInterest(){
+		stringsOfInterest = new ArrayList<String>();
+		stringsFound = new HashMap<String, Integer>();
+		stringsWithParticleConstraint = new HashMap<String, String>();
+	}
 	
 	/**
 	 * Initializes a StringsOfInterest object containing the strings 
@@ -28,31 +33,39 @@ public class StringsOfInterest {
 	 * @param filename Name of file containing the strings of interest
 	 * @throws IOException
 	 */
-	public void initialize(String filename) throws IOException{
-		stringsOfInterest = new ArrayList<String>();
-		stringsFound = new HashMap<String, Integer>();
-		stringsWithParticleConstraint = new HashMap<String, String>();
+	public void setStringsOfInterest(String filename) throws IOException{
+		
 		
 		BufferedReader in = new BufferedReader(new FileReader(new File(filename)));
 		String nextString = in.readLine();
 		while(nextString!=null){
 			nextString = nextString.trim();
-			if(nextString!=""){
-				String[] splits = nextString.split(",");
-				
-				stringsOfInterest.add(splits[0].trim());
-				stringsFound.put(splits[0].trim(), 0);
-				
-				if(splits.length>1){
-					stringsWithParticleConstraint.put(splits[0].trim(), splits[1].trim());
-				}
-				
-			}
+			processString(nextString);
 			nextString = in.readLine();
 		}
 		in.close();
 		System.out.println(stringsOfInterest);
 		System.out.println(stringsWithParticleConstraint);
+	}
+	
+	private void processString(String nextString){
+		if(nextString!=""){
+			String[] splits = nextString.split(",");
+			
+			stringsOfInterest.add(splits[0].trim());
+			stringsFound.put(splits[0].trim(), 0);
+			
+			if(splits.length>1){
+				stringsWithParticleConstraint.put(splits[0].trim(), splits[1].trim());
+			}
+			
+		}
+	}
+	
+	public void setStringsOfInterest(List<String> ofInterest){
+		for (String string : ofInterest) {
+			processString(string);
+		}
 	}
 	
 	public List<String> getStringsOfInterest() {

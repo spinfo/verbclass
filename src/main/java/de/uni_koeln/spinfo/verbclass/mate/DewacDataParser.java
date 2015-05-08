@@ -78,6 +78,8 @@ public class DewacDataParser {
 	 */
 	public void parseToFile(InputStream in, OutputStream out, int maxSentences) throws IOException{
 		List<SentenceData09> processStream = conv.processStream(in, 0);
+		
+		
 		CONLLWriter09 writer = new is2.io.CONLLWriter09(new PrintWriter(new OutputStreamWriter(out)));
 	
 		for (SentenceData09 sentence : processStream) {			

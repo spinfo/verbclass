@@ -32,7 +32,7 @@ public class DewacTester {
 	public void testOfInterest() throws IOException {
 		
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.setStringsOfInterest("verbsOfInterest");
 		
 		DewacSplitter ds = new DewacSplitter("sentencesWithVerbs");
 		ds.sentencesOfInterestToFile(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000000);
@@ -43,7 +43,7 @@ public class DewacTester {
 	public void testCreateFilePerVerb() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("data/100verbsPure.txt");
+		soi.setStringsOfInterest("data/100verbsPure.txt");
 		
 		DewacSplitter ds = new DewacSplitter("output/100verbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
@@ -53,7 +53,7 @@ public class DewacTester {
 	public void testCreateFilePerVerbUseParticles() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("data/splittedparticles.txt");
+		soi.setStringsOfInterest("data/splittedparticles.txt");
 		
 		DewacSplitter ds = new DewacSplitter("output/sentencesWithParticleVerbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000);
@@ -62,7 +62,7 @@ public class DewacTester {
 	@Test
 	public void testStringsOfInterest() throws IOException{
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.setStringsOfInterest("verbsOfInterest");
 		assertFalse(soi.isOfInterest("Killefitz"));
 		assertTrue(soi.isOfInterest("halten"));
 		System.out.println(soi);
