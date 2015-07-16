@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ClassifiedNomsReader {
 	
@@ -17,9 +18,13 @@ public class ClassifiedNomsReader {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String line = in.readLine();
 			do{
-				String[] split = line.split(";");
+				String[] split = line.split("\\s+");
+				System.out.println(Arrays.asList(split));
 				String type = split[0];
-				int cls = Integer.parseInt(split[split.length-1]);
+				System.out.println(type);
+				
+				int cls = Integer.parseInt(split[split.length-1].trim());
+				System.out.println(cls);
 				toReturn.addArgument(arg, cls, type);
 				line = in.readLine();
 			}

@@ -17,6 +17,26 @@ import de.uni_koeln.spinfo.verbclass.dewac.StringsOfInterest;
 
 public class DewacTester {
 
+	@Test
+	public void countOccurencesOfString() throws IOException{
+		File inputFolder = new File("output/nomsNew");
+		File[] listFiles = inputFolder.listFiles();
+		for (File file : listFiles) {
+			String name = file.getName();
+			name = name.substring(0, name.length()-4);
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			String line = in.readLine();
+			int counter = 0;
+			while(line!=null){
+				if(line.contains(name)){
+					counter++;
+				}
+				line = in.readLine();
+			}
+			System.out.println(name + ": " + counter);
+		}
+	}
+	
 	/**
 	 * Splits the sdewac corpus to files containing 1MB data
 	 * @throws IOException

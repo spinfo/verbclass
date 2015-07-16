@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import de.uni_koeln.spinfo.verbclass.io.ArgumentClasses;
 import de.uni_koeln.spinfo.verbclass.io.ClassifiedNomsReader;
+import de.uni_koeln.spinfo.verbclass.verbfeatures.VectorOutputGenerator;
 import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatureAggregator;
 import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatureIntersection;
 import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatures;
@@ -76,15 +77,19 @@ public class VerbFeatureAggregatorTest {
 		ArgumentClasses nomsWithClasses = cnr.getNomsWithClasses(new File("data/classArg"));
 		VerbFeatureIntersection vfi = new VerbFeatureIntersection();
 		
-		PrintWriter out = new PrintWriter(new FileWriter(new File("output/100verbsMatrix.csv")));
-		List<String> buildIntersection = vfi.buildIntersection(verbsWithFeatures, nomsWithClasses);
+		PrintWriter out = new PrintWriter(new FileWriter(new File("output/CyrilMatrixAggregatedTypes_9_3_5_3.csv")));
+		List<String> buildIntersection = vfi.buildIntersection(verbsWithFeatures, nomsWithClasses, true, true);
 		for (String string : buildIntersection) {
 			out.println(string);
 		}
 		out.flush();
-		out.close();
-		
-		
+		out.close();		
+	}
+	
+	@Test
+	public void testVerbVectorExporter() throws ClassNotFoundException, IOException{
+		VectorOutputGenerator vog = new VectorOutputGenerator();
+		vog.exportVerbVectors(new File("output_150512"), new File("output_150512/verbvectors"));
 	}
 
 }

@@ -10,7 +10,7 @@ import de.uni_koeln.spinfo.verbclass.io.ArgumentClasses;
 
 public class VerbFeatureIntersection {
 	
-	public List<String> buildIntersection(Map<String, VerbFeatures> verbsWithFeatures, ArgumentClasses acs){
+	public List<String> buildIntersection(Map<String, VerbFeatures> verbsWithFeatures, ArgumentClasses acs, boolean aggregateClasses, boolean typeBased){
 		
 		List<String> toReturn = new ArrayList<String>();
 		
@@ -28,12 +28,37 @@ public class VerbFeatureIntersection {
 			Set<Integer> subjs = subjectClasses.keySet();
 			for (Integer sc : subjs) {
 				Set<String> subjSet = subjectClasses.get(sc);
+				int aggregatedCount = 0;
 				for (String subj : subjSet) {
 					Integer count = subjectsOfVerb.get(subj);
 					if(count==null){
 						count = 0;
 					}
-					counts.add(count);
+					if(aggregateClasses){
+						if(typeBased){
+							if(count>0) 
+								aggregatedCount++;
+						}
+						else{
+							aggregatedCount += count;
+						}
+					}
+					else{
+						if(typeBased){
+							if(count>0){ 
+								counts.add(1);
+							}
+							else{
+								counts.add(0);
+							}
+						}
+						else{
+							counts.add(count);
+						}
+					}
+				}
+				if(aggregateClasses){
+					counts.add(aggregatedCount);
 				}
 				System.out.println("Subjects size class " + sc + ": " + subjSet.size());
 			}
@@ -43,12 +68,37 @@ public class VerbFeatureIntersection {
 			Set<Integer> dos = directObjectClasses.keySet();
 			for (Integer doClass : dos) {
 				Set<String> dOSet = directObjectClasses.get(doClass);
+				int aggregatedCount = 0;
 				for (String doc : dOSet) {
 					Integer count = dosOfVerb.get(doc);
 					if(count==null){
 						count = 0;
 					}
-					counts.add(count);
+					if(aggregateClasses){
+						if(typeBased){
+							if(count>0) 
+								aggregatedCount++;
+						}
+						else{
+							aggregatedCount += count;
+						}
+					}
+					else{
+						if(typeBased){
+							if(count>0){ 
+								counts.add(1);
+							}
+							else{
+								counts.add(0);
+							}
+						}
+						else{
+							counts.add(count);
+						}
+					}
+				}
+				if(aggregateClasses){
+					counts.add(aggregatedCount);
 				}
 				System.out.println("DO size class " + doClass + ": " + dOSet.size());
 			}
@@ -56,14 +106,40 @@ public class VerbFeatureIntersection {
 			Map<String, Integer> posOfVerb = verbFeatures.getPrepositionalObjects();
 			Map<Integer, Set<String>> prepObjectClasses = acs.getPrepObjectClasses();
 			Set<Integer> pos = prepObjectClasses.keySet();
+			
 			for (Integer poClass : pos) {
 				Set<String> pOSet = prepObjectClasses.get(poClass);
+				int aggregatedCount = 0;
 				for (String poc : pOSet) {
 					Integer count = posOfVerb.get(poc);
 					if(count==null){
 						count = 0;
 					}
-					counts.add(count);
+					if(aggregateClasses){
+						if(typeBased){
+							if(count>0) 
+								aggregatedCount++;
+						}
+						else{
+							aggregatedCount += count;
+						}
+					}
+					else{
+						if(typeBased){
+							if(count>0){ 
+								counts.add(1);
+							}
+							else{
+								counts.add(0);
+							}
+						}
+						else{
+							counts.add(count);
+						}
+					}
+				}
+				if(aggregateClasses){
+					counts.add(aggregatedCount);
 				}
 				System.out.println("PO size class " + poClass + ": " + pOSet.size());
 			}

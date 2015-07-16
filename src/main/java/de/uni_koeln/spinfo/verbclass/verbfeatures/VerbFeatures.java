@@ -1,5 +1,6 @@
 package de.uni_koeln.spinfo.verbclass.verbfeatures;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  * @author jhermes
  *
  */
-public class VerbFeatures {
+public class VerbFeatures implements Serializable{
 	
 	private String lemma;
 		//The Lemma of this verb

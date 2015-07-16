@@ -32,6 +32,15 @@ public class Pipeline100Tests {
 		DewacSplitter ds = new DewacSplitter("output/100verbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
 	}
+	
+	@Test
+	public void testCreateFilePerNom() throws IOException{
+
+		StringsOfInterest soi = new StringsOfInterest();
+		soi.setStringsOfInterest("data/nomsPure.txt");		
+		DewacSplitter ds = new DewacSplitter("output/noms");
+		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
+	}
 //	
 //	@Test
 //	public void testCreateFileForOneVerb() throws IOException{
@@ -100,7 +109,7 @@ public class Pipeline100Tests {
 	
 	@Test
 	public void countParsedSentencesPerVerb(){
-		File folder = new File("output/100verbsParsed");
+		File folder = new File("output/noms");
 		File[] listFiles = folder.listFiles();
 		int sum = 0;
 		for (File file : listFiles) {
@@ -170,8 +179,9 @@ public class Pipeline100Tests {
 
 	@Test
 	public void testSentenceCount() throws IOException{
-		File checkFolder = new File("output/100verbsParsedConcat");
+		File checkFolder = new File("output/noms");
 		File[] listFiles = checkFolder.listFiles();
+		int i=0;
 		for (File file : listFiles) {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String nextLine = in.readLine();
@@ -182,7 +192,33 @@ public class Pipeline100Tests {
 				}
 				nextLine = in.readLine();				
 			}
-			System.out.println(counter + "\t" + file.getName());
+			System.out.println(i++ + " " + counter + "\t" + file.getName());
+		}
+	}
+	
+	@Test
+	public void cleanCorpusCount() throws IOException{
+		File checkFolder = new File("output/noms");
+		File[] listFiles = checkFolder.listFiles();
+		int i=0;
+		System.out.println(listFiles.length);
+		for (File file : listFiles) {
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			PrintWriter out = new PrintWriter(new FileWriter("output/nomsNew/"+file.getName()));
+			String nextLine = in.readLine();
+			StringBuffer buff = new StringBuffer();
+			boolean inSentence = false;
+			while(nextLine!=null){
+				buff.append(nextLine + "\n");
+				
+				if(nextLine.startsWith("</s>")){
+					out.println(buff.toString());
+					buff = new StringBuffer();
+				}
+				nextLine = in.readLine();				
+			}
+			out.flush();
+			out.close();
 		}
 	}
 

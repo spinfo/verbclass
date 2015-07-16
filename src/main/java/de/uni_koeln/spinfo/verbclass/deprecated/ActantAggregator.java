@@ -334,6 +334,8 @@ public class ActantAggregator {
 					Map<String, Integer> actantCount = actantClasses.get(actantClass);
 					List<Integer> values = new ArrayList<Integer>(actantCount.values());
 					Collections.sort(values);
+					Collections.reverse(values);
+					System.out.println(values);
 					List<String> mostPresentActants = new ArrayList<String>();
 					for (Integer count : values) {
 						Set<String> keySet3 = actantCount.keySet();

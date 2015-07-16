@@ -2,6 +2,8 @@ package de.uni_koeln.spinfo.verbclass.tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -15,14 +17,24 @@ public class ArgReaderTest {
 		ClassifiedNomsReader cnr = new ClassifiedNomsReader();
 		ArgumentClasses nomsWithClasses = cnr.getNomsWithClasses(new File("data/classArg"));
 		System.out.println(nomsWithClasses.getAccObjectClasses().size());
-		System.out.println(nomsWithClasses.getAccObjectClasses());
+		Map<Integer, Set<String>> actantClasses = nomsWithClasses.getAccObjectClasses();
+		Set<Integer> keySet = actantClasses.keySet();
+		for (Integer integer : keySet) {
+			System.out.println(integer + ": " + actantClasses.get(integer).size());
+		}
 		System.out.println();
-		System.out.println(nomsWithClasses.getPrepObjectClasses().size());
-		System.out.println(nomsWithClasses.getPrepObjectClasses());
+		actantClasses = nomsWithClasses.getPrepObjectClasses();
+		keySet = actantClasses.keySet();
+		for (Integer integer : keySet) {
+			System.out.println(integer + ": " + actantClasses.get(integer).size());
+		}
 		System.out.println();
-		System.out.println(nomsWithClasses.getSubjectClasses().size());
-		System.out.println(nomsWithClasses.getSubjectClasses());
-		System.out.println();
+		actantClasses = nomsWithClasses.getSubjectClasses();
+		keySet = actantClasses.keySet();
+		for (Integer integer : keySet) {
+			System.out.println(integer + ": " + actantClasses.get(integer).size());
+		}
+		
 	}
 
 }
