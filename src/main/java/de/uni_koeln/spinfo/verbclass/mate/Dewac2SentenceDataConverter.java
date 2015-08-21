@@ -19,7 +19,7 @@ public class Dewac2SentenceDataConverter {
 	
 	/**
 	 * Writes the data from the input stream to a list of SentenceData09 objects
-	 * @param input The input stream (should contain valid (s)Dewac data. 
+	 * @param input The input stream - should contain valid (s)Dewac data. 
 	 * @param nSentences Max sentences to convert
 	 * @return A list of SentenceData09 objects
 	 * @throws IOException

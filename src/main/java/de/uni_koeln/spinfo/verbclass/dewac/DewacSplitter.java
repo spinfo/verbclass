@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class DewacSplitter {
 	
-	private File[] inputFiles; 
+	//private File[] inputFiles; 
 	private File destinationDir;
 		
 	
@@ -76,6 +76,7 @@ public class DewacSplitter {
 							if(found.get(ofInterest) <= maxSentencesPerFile){
 								outs.get(ofInterest).println(toWrite.toString());
 								found.set(ofInterest, found.get(ofInterest)+1);
+								System.out.println(notOfInterest + " " + ofInterest);
 							}
 						}
 						else{
@@ -90,15 +91,18 @@ public class DewacSplitter {
 			else{
 				String[] splits = nextLine.split("\\s");
 				String lemma = splits[2].trim();
+				if(lemma.equals("<unknown>")){
+					lemma = splits[0].trim();
+				}
 				if(soi.isOfInterest(lemma)){
 					ofInterest = soi.getId(lemma);
 				}
 				toWrite.append(nextLine + '\n');
 			}
 			
-			if(notOfInterest>100000){
-				break;
-			}
+//			if(notOfInterest>20000000){
+//				break;
+//			}
 			//System.out.println(nextLine);
 			nextLine = in.readLine();		
 			
@@ -325,5 +329,64 @@ public class DewacSplitter {
 			nextLine = in.readLine();			
 		}		
 		in.close();
+	}
+
+
+	/**
+	 * Creates a subsection of each file in the input folder 
+	 * @param inputFolder
+	 * @param start
+	 * @param end
+	 * @throws IOException
+	 */
+	public void splitFilesinFolder(String inputFolder, int start, int end) throws IOException {
+		File folder = new File(inputFolder);
+		File[] listFiles = folder.listFiles();
+		for (File inputFile : listFiles) {
+			BufferedReader in = new BufferedReader(new FileReader(inputFile));
+			String nextLine = in.readLine();
+			
+			StringBuffer toWrite = new StringBuffer();
+			int sentenceCounter = 0;
+			PrintWriter out;
+			
+			while(nextLine!= null){
+				if(nextLine.startsWith("<")){
+					if(nextLine.trim().equals("<s>")){
+						sentenceCounter++;
+						if(sentenceCounter>start)
+							toWrite.append(nextLine + '\n');
+						//System.out.println(sentenceCounter);
+					}
+					else{
+						if(sentenceCounter>start){
+							if(nextLine.trim().equals("</s>")){
+								toWrite.append(nextLine + "\n\n");
+								if(sentenceCounter>=end){
+									//toWrite.append(nextLine + "\n\n");
+									//System.out.println("File: " + fileCounter);
+									System.out.println("sentences: " + sentenceCounter);
+									System.out.println("Buffer: " + toWrite.length());
+									System.out.println();
+									File destFile = new File(destinationDir +"/"+ inputFile.getName());
+									out = new PrintWriter(new FileWriter(destFile));
+									out.println(toWrite.toString());
+									out.close();
+									toWrite = new StringBuffer();
+									sentenceCounter = 0;
+									
+								}						
+							}
+						}	
+					}
+				}
+				else{
+					if(sentenceCounter>start)
+						toWrite.append(nextLine + '\n');
+				}
+				nextLine = in.readLine();			
+			}		
+			in.close();	
+		}			
 	}
 }

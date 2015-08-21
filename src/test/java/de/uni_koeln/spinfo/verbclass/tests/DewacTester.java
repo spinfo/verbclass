@@ -17,6 +17,26 @@ import de.uni_koeln.spinfo.verbclass.dewac.StringsOfInterest;
 
 public class DewacTester {
 
+	@Test
+	public void countOccurencesOfString() throws IOException{
+		File inputFolder = new File("output/nomsNew");
+		File[] listFiles = inputFolder.listFiles();
+		for (File file : listFiles) {
+			String name = file.getName();
+			name = name.substring(0, name.length()-4);
+			BufferedReader in = new BufferedReader(new FileReader(file));
+			String line = in.readLine();
+			int counter = 0;
+			while(line!=null){
+				if(line.contains(name)){
+					counter++;
+				}
+				line = in.readLine();
+			}
+			System.out.println(name + ": " + counter);
+		}
+	}
+	
 	/**
 	 * Splits the sdewac corpus to files containing 1MB data
 	 * @throws IOException
@@ -32,7 +52,7 @@ public class DewacTester {
 	public void testOfInterest() throws IOException {
 		
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.setStringsOfInterest("verbsOfInterest");
 		
 		DewacSplitter ds = new DewacSplitter("sentencesWithVerbs");
 		ds.sentencesOfInterestToFile(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000000);
@@ -43,17 +63,17 @@ public class DewacTester {
 	public void testCreateFilePerVerb() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.setStringsOfInterest("data/100verbsPure.txt");
 		
-		DewacSplitter ds = new DewacSplitter("sentencesWithVerbs");
-		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 100000);
+		DewacSplitter ds = new DewacSplitter("output/100verbs");
+		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
 	}
 	
 	@Test
 	public void testCreateFilePerVerbUseParticles() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("data/splittedparticles.txt");
+		soi.setStringsOfInterest("data/splittedparticles.txt");
 		
 		DewacSplitter ds = new DewacSplitter("output/sentencesWithParticleVerbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 1000);
@@ -62,7 +82,7 @@ public class DewacTester {
 	@Test
 	public void testStringsOfInterest() throws IOException{
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.initialize("verbsOfInterest");
+		soi.setStringsOfInterest("verbsOfInterest");
 		assertFalse(soi.isOfInterest("Killefitz"));
 		assertTrue(soi.isOfInterest("halten"));
 		System.out.println(soi);

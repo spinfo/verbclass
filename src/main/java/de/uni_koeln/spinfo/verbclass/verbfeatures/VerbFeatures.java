@@ -1,5 +1,6 @@
 package de.uni_koeln.spinfo.verbclass.verbfeatures;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ import java.util.Map;
  * @author jhermes
  *
  */
-public class VerbFeatures {
+public class VerbFeatures implements Serializable{
 	
 	private String lemma;
 		//The Lemma of this verb
@@ -57,6 +58,7 @@ public class VerbFeatures {
 	public String toString(){
 		StringBuffer buff= new StringBuffer();
 		
+		buff.append(lemma+"\t");
 		buff.append(imperativeCount+"\t");
 		buff.append(stoppedActionCount+"\t");
 		buff.append(persuadeCount+"\t");
@@ -66,7 +68,8 @@ public class VerbFeatures {
 		buff.append(withIntentCount+"\t");
 		buff.append(carefullyCount+"\t");
 		buff.append(almostlyCount+"\t");
-		buff.append(lemma+"\t");
+		
+		//buff.append(subjects);
 		return buff.toString();
 	}
 
@@ -214,6 +217,24 @@ public class VerbFeatures {
 		map.put(lemma, count);
 	}
 	
+	public void removeFromMap(Map<String, Integer> map, String lemma){
+		map.remove(lemma);
+	}
 	
+	public void removeSubject(String lemma){
+		removeFromMap(this.subjects, lemma);
+	}
+	
+	public void removePrepositionalObject(String lemma){
+		removeFromMap(this.prepositionalObjects, lemma);
+	}
+	
+	public void removeDirectObject(String lemma){
+		removeFromMap(this.directObjects, lemma);
+	}
+	
+	public void removeDativeObject(String lemma){
+		removeFromMap(this.dativeObjects, lemma);
+	}
 
 }

@@ -3,12 +3,20 @@ import is2.data.SentenceData09;
 import is2.io.CONLLReader09;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
 
+import de.uni_koeln.spinfo.verbclass.io.ArgumentClasses;
+import de.uni_koeln.spinfo.verbclass.io.ClassifiedNomsReader;
+import de.uni_koeln.spinfo.verbclass.verbfeatures.VectorOutputGenerator;
 import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatureAggregator;
+import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatureIntersection;
 import de.uni_koeln.spinfo.verbclass.verbfeatures.VerbFeatures;
 
 
@@ -19,7 +27,7 @@ public class VerbFeatureAggregatorTest {
 		VerbFeatureAggregator vfa = new VerbFeatureAggregator();
 		
 		
-		File folder = new File("output/parsedSentencesWithVerbs");
+		File folder = new File("output/100verbsParsed");
 		File[] listFiles = folder.listFiles();
 		int sum = 0;
 		for (File file : listFiles) {
@@ -41,6 +49,47 @@ public class VerbFeatureAggregatorTest {
 			VerbFeatures vf = verbsWithFeatures.get(string);
 			System.out.println(vf);
 		}
+	}
+	
+	@Test
+	public void testToMatrix() throws IOException {
+		VerbFeatureAggregator vfa = new VerbFeatureAggregator();
+		
+		
+		File folder = new File("output/100verbsParsedConcat");
+		File[] listFiles = folder.listFiles();
+		int sum = 0;
+		for (File file : listFiles) {
+			CONLLReader09 reader = new CONLLReader09(true);
+			reader.startReading(file.getAbsolutePath());
+			SentenceData09 nextCoNLL09 = reader.getNextCoNLL09();
+			
+			String verb = file.getName().substring(0, file.getName().length()-4);
+			
+			while(nextCoNLL09!=null){
+				vfa.addVerbFeatures(verb, nextCoNLL09);			
+				nextCoNLL09 = reader.getNextCoNLL09();
+				sum++;
+			}
+		}
+		Map<String, VerbFeatures> verbsWithFeatures = vfa.getVerbsWithFeatures();
+		ClassifiedNomsReader cnr = new ClassifiedNomsReader();
+		ArgumentClasses nomsWithClasses = cnr.getNomsWithClasses(new File("data/classArg"));
+		VerbFeatureIntersection vfi = new VerbFeatureIntersection();
+		
+		PrintWriter out = new PrintWriter(new FileWriter(new File("output/CyrilMatrixAggregatedTypes_9_3_5_3.csv")));
+		List<String> buildIntersection = vfi.buildIntersection(verbsWithFeatures, nomsWithClasses, true, true);
+		for (String string : buildIntersection) {
+			out.println(string);
+		}
+		out.flush();
+		out.close();		
+	}
+	
+	@Test
+	public void testVerbVectorExporter() throws ClassNotFoundException, IOException{
+		VectorOutputGenerator vog = new VectorOutputGenerator();
+		vog.exportVerbVectors(new File("output_150512"), new File("output_150512/verbvectors"));
 	}
 
 }
