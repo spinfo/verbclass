@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class DewacSplitter {
 	
-	private File[] inputFiles; 
+	//private File[] inputFiles; 
 	private File destinationDir;
 		
 	
@@ -329,6 +329,13 @@ public class DewacSplitter {
 	}
 
 
+	/**
+	 * Creates a subsection of each file in the input folder 
+	 * @param inputFolder
+	 * @param start
+	 * @param end
+	 * @throws IOException
+	 */
 	public void splitFilesinFolder(String inputFolder, int start, int end) throws IOException {
 		File folder = new File(inputFolder);
 		File[] listFiles = folder.listFiles();
