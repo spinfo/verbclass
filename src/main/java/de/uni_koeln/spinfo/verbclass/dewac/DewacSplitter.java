@@ -91,6 +91,9 @@ public class DewacSplitter {
 			else{
 				String[] splits = nextLine.split("\\s");
 				String lemma = splits[2].trim();
+				if(lemma.equals("<unknown>")){
+					lemma = splits[0].trim();
+				}
 				if(soi.isOfInterest(lemma)){
 					ofInterest = soi.getId(lemma);
 				}
