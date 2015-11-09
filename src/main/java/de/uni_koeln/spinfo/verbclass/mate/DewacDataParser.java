@@ -4,9 +4,9 @@ import is2.io.CONLLWriter09;
 import is2.parser.Parser;
 import is2.tools.Tool;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import de.uni_koeln.spinfo.verbclass.deprecated.ActantAggregator;
 
@@ -69,6 +70,51 @@ public class DewacDataParser {
 		}
 	}
 	
+	public void countPOSTags(File inputFolder, int maxSentences) throws IOException{
+		
+		Map<String, Integer> posCounts = new TreeMap<String, Integer>(); 
+		if(maxSentences<1){
+			maxSentences = Integer.MAX_VALUE;
+		}
+		
+		File[] listFiles = inputFolder.listFiles();
+		for (File inputFile : listFiles) {
+			System.out.println("Parsing: " + inputFile.getName());
+			countPOSTags(new FileInputStream(inputFile), maxSentences, posCounts);			 
+		}
+		Set<String> keySet = posCounts.keySet();
+		for (String string : keySet) {
+			System.out.println(string + ": " + posCounts.get(string));
+		}
+	}
+	
+	private Map<String, Integer> countPOSTags(InputStream in, int maxSentences, Map<String, Integer> posCounts) throws IOException {
+		List<SentenceData09> processStream = conv.processStream(in, 0);
+		
+		
+		for (SentenceData09 sentence : processStream) {			
+			//System.out.println("\nApplying the morphologic tagger");
+			//sentence=morphTagger.apply(sentence);
+			//System.out.println("\nApplying the parser");
+			//sentence=parser.apply(sentence);			
+			//writer.write(sentence, CONLLWriter09.NO_ROOT);	
+			String[] postags = sentence.ppos;
+			for (String postag : postags) {
+				Integer count = posCounts.get(postag);
+				if(count==null){
+					count = 0;
+				}
+				count++;
+				posCounts.put(postag, count);
+			}
+			//System.out.println(maxSentences);
+			if(maxSentences--<1){
+				break;
+			}
+		}
+		return posCounts;
+	}
+
 	/** 
 	 * Parses the sentences found on the input stream and writes them to the output stream
 	 * @param in Input stream
@@ -95,6 +141,9 @@ public class DewacDataParser {
 		}
 		writer.finishWriting();
 	}
+	
+
+	
 	
 	@Deprecated
 	public void parseToActantFile(String verb, InputStream in, OutputStream out) throws IOException{

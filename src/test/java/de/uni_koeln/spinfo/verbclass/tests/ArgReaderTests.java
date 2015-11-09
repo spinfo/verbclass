@@ -10,7 +10,7 @@ import org.junit.Test;
 import de.uni_koeln.spinfo.verbclass.io.ArgumentClasses;
 import de.uni_koeln.spinfo.verbclass.io.ClassifiedNomsReader;
 
-public class ArgReaderTest {
+public class ArgReaderTests {
 
 	@Test
 	public void test() throws IOException {

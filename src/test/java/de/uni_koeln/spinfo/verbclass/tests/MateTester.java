@@ -5,10 +5,12 @@ import is2.io.CONLLWriter09;
 import is2.parser.Parser;
 import is2.tools.Tool;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -21,7 +23,12 @@ import de.uni_koeln.spinfo.verbclass.mate.DewacDataParser;
 
 public class MateTester {
 	
-	
+	@Test
+	public void testCountPOSTags() throws IOException{
+		
+		DewacDataParser d2s = new DewacDataParser();
+		d2s.countPOSTags(new File("output/100verbs"), -1);
+	}
 	
 	@Test
 	public void testAggregateAllVerbActants() throws IOException{
@@ -91,6 +98,40 @@ public class MateTester {
 			
 			System.out.println(i++);
 		}
+	}
+	
+	@Test 
+	public void testOwnMateParser() throws IOException{
+		BufferedReader in = new BufferedReader(new FileReader(new File("output/parsedSentencesWithVerbs/abgrenzen.txt")));
+		String line = in.readLine();
+		
+		while(line!=null){
+			String[] split = line.split("\\s");
+			if(split.length<14){
+				break;
+			}
+			for (int i = 0; i<split.length;i++) {
+				System.out.println(i + " " + split[i]);
+			}
+			line = in.readLine();
+			
+		}
+		
+//		CONLLReader09 reader = new CONLLReader09(true);
+//		reader.startReading("output/parsedSentencesWithVerbs/abgrenzen.txt");
+//		SentenceData09 nextCoNLL09 = reader.getNextCoNLL09();
+//		int i=0;
+//		while(nextCoNLL09!=null){
+//			nextCoNLL09 = reader.getNextCoNLL09();
+//			String[] pfeats = nextCoNLL09.pfeats;
+//			for (String string : pfeats) {
+//				if(string!=null && string.endsWith("|imp")){
+//					System.out.println(nextCoNLL09);
+//				}
+//			}
+//			
+//			System.out.println(i++);
+//		}
 	}
 	
 	@Test
