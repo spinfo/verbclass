@@ -54,6 +54,11 @@ public class DataImporterNotAmbigious {
 			line = in.readLine();
 		}
 		System.out.println();
+		ConsistentRated<Integer> cr = new ConsistentRated<Integer>(ratedAttributes.values());
+		System.out.println(cr.getTypesWithMinRaterAgreementN(1).size() + ":  " + cr.getTypesWithMinRaterAgreementN(1));
+		System.out.println(cr.getTypesWithMinRaterAgreementN(2).size() + ":  " + cr.getTypesWithMinRaterAgreementN(2));
+		System.out.println(cr.getTypesWithMinRaterAgreementN(3).size() + ":  " + cr.getTypesWithMinRaterAgreementN(3));
+		System.out.println(cr.getTypesWithMinRaterAgreementN(4).size() + ":  " + cr.getTypesWithMinRaterAgreementN(4));
 	}
 	
 	public void printAttributesWithRates(){
