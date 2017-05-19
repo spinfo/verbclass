@@ -30,5 +30,8 @@ public class Rater<T> {
 		return rates;
 	}
 	
+	public String toString(){
+		return id;
+	}
 	
 }
