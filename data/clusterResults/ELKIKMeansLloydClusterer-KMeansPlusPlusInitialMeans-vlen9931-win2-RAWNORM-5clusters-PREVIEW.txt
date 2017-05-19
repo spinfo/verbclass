@@ -1,0 +1,10 @@
+********************************** 
+ELKIKMeansLloydClusterer-KMeansPlusPlusInitialMeans-vlen9931-win2-RAWNORM-5clusters-PREVIEW.txt
+* 5 clusters, sizes: [cluster 0: 15], [cluster 1: 16], [cluster 2: 14], [cluster 3: 13], [cluster 4: 8], 
+********************************** 
+
+Cluster # 0: [sein, fallen, dauern, schmelzen, sinken, vorhanden, fehlen, verkünden, laufen, liegen, hämmern, erlauben, betreffen, wachsen, schrumpfen]
+Cluster # 1: [vorgehen, vorliegen, einschläfern, hinzukommen, übereinstimmen, aufessen, vorherrschen, vorkommen, nachprüfen, einschlafen, angehören, zunehmen, ansteigen, weitersagen, aufbauen, herstellen]
+Cluster # 2: [entwickeln, behalten, besitzen, existieren, ändern, anfangen, sterben, verändern, bedenken, unterscheiden, kaufen, begreifen, verlieren, übersehen]
+Cluster # 3: [kontrollieren, testen, saufen, trinken, zersägen, diskutieren, beraten, untersuchen, verzehren, inhalieren, gründen, übermitteln, essen]
+Cluster # 4: [schneiden, nehmen, können, befehlen, dürfen, orientieren, richten, müssen]

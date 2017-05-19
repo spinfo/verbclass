@@ -63,9 +63,9 @@ public class DewacTester {
 	public void testCreateFilePerVerb() throws IOException{
 
 		StringsOfInterest soi = new StringsOfInterest();
-		soi.setStringsOfInterest("data/100verbsPure.txt");
+		soi.setStringsOfInterest("data/66verbs.txt");
 		
-		DewacSplitter ds = new DewacSplitter("output/100verbs");
+		DewacSplitter ds = new DewacSplitter("output/66verbs");
 		ds.createFilePerVerb(new File("C://Korpora//DeWaC//sdewac-v3.tagged"), soi, 3000);
 	}
 	
@@ -110,6 +110,20 @@ public class DewacTester {
 		for (String string : tagSet) {
 			System.out.println(string);
 		}
+	}
+	
+	@Test
+	public void testListPrints(){
+		String strs = "schmelzen, ändern, verändern, fallen, schrumpfen, zunehmen, wachsen, ansteigen, sinken, befehlen, erlauben, dürfen, können, entwickeln, herstellen, hinzukommen, sterben, sein, existieren, fehlen, vorgehen, weitersagen, verkünden, übermitteln, diskutieren, beraten, gründen, testen, aufbauen, zersägen, richten, übersehen, liegen, unterscheiden, betreffen, angehören, müssen, übereinstimmen, begreifen, kontrollieren, untersuchen, bedenken, nachprüfen, laufen, hämmern, schneiden, orientieren, anfangen, vorherrschen, vorkommen, vorhanden, vorliegen, dauern, einschläfern, nehmen, verlieren, besitzen, behalten, kaufen, trinken, saufen, verzehren, inhalieren, essen, aufessen, einschlafen";
+		String numb = "3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 2612, 3001, 3001, 3001, 3001, 3001, 344, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 284, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 3001, 996, 3001, 1139, 3001, 3001, 3001, 1993, 3001, 3001, 3001, 3001, 940, 3001, 3001, 3001, 3001, 3001, 3001, 1357, 3001, 565, 3001, 552, 3001";
+		
+		String[] str = strs.split(",");
+		String[] num = numb.split(",");
+		for (int i = 0; i < num.length; i++) {
+			System.out.println(str[i].trim() + "\t" + num[i]);			
+		}
+		
+		
 	}
 
 }
