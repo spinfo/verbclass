@@ -23,7 +23,7 @@ public class VectorOutputGenerator {
 	
 	
 	public void serializeVerbsWithFeatures() throws IOException{
-		VerbFeatureAggregator vfa = new VerbFeatureAggregator();
+		VerbParsedFeatureAggregator vfa = new VerbParsedFeatureAggregator();
 		
 		
 		File folder = new File("output/100verbsParsedConcat");

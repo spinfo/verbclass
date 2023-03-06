@@ -2,6 +2,7 @@ package de.uni_koeln.spinfo.verbclass.mate;
 import is2.data.SentenceData09;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -103,4 +104,5 @@ public class Dewac2SentenceDataConverter {
 		System.out.println(sd.toString());
 		return sd;
 	}
+	
 }

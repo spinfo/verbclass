@@ -12,7 +12,10 @@ import java.util.Map;
 public class VerbFeatures implements Serializable{
 	
 	private String lemma;
-		//The Lemma of this verb
+		//The Lemma of this verb	
+	
+	private Map<String, Integer> unlabeledCoOccurences; 
+		//Unspecified co occurences  
 	
 	private Map<String, Integer> subjects; 
 		//Heads of subject phrases with counts 
@@ -83,6 +86,7 @@ public class VerbFeatures implements Serializable{
 		this.dativeObjects = new HashMap<String, Integer>();
 		this.directObjects = new HashMap<String, Integer>();
 		this.prepositionalObjects = new HashMap<String, Integer>();
+		this.unlabeledCoOccurences = new HashMap<String, Integer>();
 	}
 
 	/** Returns the lemma of the verb
@@ -92,6 +96,21 @@ public class VerbFeatures implements Serializable{
 		return lemma;
 	}
 	
+	/** Adds the specified co occurence lemma to the subjects map 
+	 * @param lemma co occurence lemma 
+	 */
+	public void addCoOccurence(String lemma){
+		addToMap(unlabeledCoOccurences, lemma);
+	}
+	
+	
+	/** Returns the unlabeled co occurences map
+	 * @return unlabeled co occurences map
+	 */
+	public Map<String, Integer> getUnlabeledCoOccurences() {
+		return unlabeledCoOccurences;
+	}
+
 	/** Adds the specified subject lemma to the subjects map 
 	 * @param lemma subject 
 	 */
@@ -219,6 +238,10 @@ public class VerbFeatures implements Serializable{
 	
 	public void removeFromMap(Map<String, Integer> map, String lemma){
 		map.remove(lemma);
+	}
+	
+	public void removeCoOccurence(String lemma){
+		removeFromMap(this.unlabeledCoOccurences, lemma);
 	}
 	
 	public void removeSubject(String lemma){
